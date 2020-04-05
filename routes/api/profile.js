@@ -209,12 +209,33 @@ router.put(
     try {
       let profile = await Profile.findOne({ user: req.user.id });
       profile.experience.unshift(newExp);
-      console.log(profile);
+
       await profile.save();
+
       return res.json(profile);
     } catch (error) {
       res.status(500).send('Server Error');
     }
   }
 );
+
+// @route  DELETE api/profile/experience/:exp_id
+// @desc   Delete profile experience
+// @access Private
+
+router.delete('/experience/:exp_id', auth, async (req, res) => {
+  try {
+    let profile = await Profile.findOne({ user: req.user.id });
+
+    let exp = profile.experience.id(req.params.exp_id);
+
+    exp.remove();
+
+    await profile.save();
+
+    return res.json(profile);
+  } catch (error) {
+    res.status(500).send('Server Error');
+  }
+});
 module.exports = router;
