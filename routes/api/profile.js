@@ -13,7 +13,7 @@ const User = require('../../models/User');
 router.get('/me', auth, async (req, res) => {
   try {
     let profile = await Profile.findOne({
-      user: req.user.id
+      user: req.user.id,
     }).populate('user', ['name', 'avatar']);
     if (!profile) {
       return res.status(400).json({ msg: 'There is no profile for this user' });
@@ -30,17 +30,11 @@ router.get('/me', auth, async (req, res) => {
 // @access Private
 
 router.post(
-  '/me',
+  '/',
   [
     auth,
-    [
-      check('status', 'Status is required')
-        .not()
-        .isEmpty()
-    ],
-    check('skills', 'Skills are required')
-      .not()
-      .isEmpty()
+    [check('status', 'Status is required').not().isEmpty()],
+    check('skills', 'Skills are required').not().isEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -60,7 +54,7 @@ router.post(
       twitter,
       facebook,
       linkedin,
-      instagram
+      instagram,
     } = req.body;
 
     const profileFields = {};
@@ -127,7 +121,7 @@ router.get('/', async (req, res) => {
 router.get('/user/:user_id', async (req, res) => {
   try {
     let profile = await Profile.findOne({
-      user: req.params.user_id
+      user: req.params.user_id,
     }).populate('user', ['name', 'avatar']);
 
     if (!profile) {
@@ -150,10 +144,10 @@ router.get('/user/:user_id', async (req, res) => {
 router.delete('/', auth, async (req, res) => {
   try {
     await Profile.findOneAndRemove({
-      user: req.user.id
+      user: req.user.id,
     });
     await User.findOneAndRemove({
-      _id: req.user.id
+      _id: req.user.id,
     });
 
     return res.json({ msg: 'User deleted' });
@@ -173,15 +167,9 @@ router.delete('/', auth, async (req, res) => {
 router.put(
   '/experience',
   auth,
-  check('title', 'Title is required')
-    .not()
-    .isEmpty(),
-  check('company', 'Company is required')
-    .not()
-    .isEmpty(),
-  check('from', 'From date is required')
-    .not()
-    .isEmpty(),
+  check('title', 'Title is required').not().isEmpty(),
+  check('company', 'Company is required').not().isEmpty(),
+  check('from', 'From date is required').not().isEmpty(),
 
   async (req, res) => {
     const errors = validationResult(req);
@@ -195,7 +183,7 @@ router.put(
       from,
       to,
       current,
-      description
+      description,
     } = req.body;
 
     const newExp = {
@@ -205,7 +193,7 @@ router.put(
       from,
       to,
       current,
-      description
+      description,
     };
 
     try {
@@ -248,18 +236,10 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
 router.put(
   '/education',
   auth,
-  check('school', 'School is required')
-    .not()
-    .isEmpty(),
-  check('degree', 'Degree is required')
-    .not()
-    .isEmpty(),
-  check('fieldofstudy', 'Field of study is required')
-    .not()
-    .isEmpty(),
-  check('from', 'From date is required')
-    .not()
-    .isEmpty(),
+  check('school', 'School is required').not().isEmpty(),
+  check('degree', 'Degree is required').not().isEmpty(),
+  check('fieldofstudy', 'Field of study is required').not().isEmpty(),
+  check('from', 'From date is required').not().isEmpty(),
 
   async (req, res) => {
     const errors = validationResult(req);
@@ -273,7 +253,7 @@ router.put(
       from,
       to,
       current,
-      description
+      description,
     } = req.body;
 
     const newEdu = {
@@ -283,7 +263,7 @@ router.put(
       from,
       to,
       current,
-      description
+      description,
     };
 
     try {
@@ -329,7 +309,7 @@ router.get('/github/:username', async (req, res) => {
     );
     const headers = {
       'user-agent': 'node.js',
-      Authorization: `token ${config.get('githubToken')}`
+      Authorization: `token ${config.get('githubToken')}`,
     };
 
     const gitHubResponse = await axios.get(uri, { headers });
