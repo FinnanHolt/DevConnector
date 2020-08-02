@@ -198,6 +198,7 @@ router.put(
 
     try {
       let profile = await Profile.findOne({ user: req.user.id });
+      newExp.to = newExp.current ? '' : newExp.to;
       profile.experience.unshift(newExp);
 
       await profile.save();
@@ -268,6 +269,7 @@ router.put(
 
     try {
       let profile = await Profile.findOne({ user: req.user.id });
+      newEdu.to = newEdu.current ? '' : newEdu.to;
       profile.education.unshift(newEdu);
 
       await profile.save();
