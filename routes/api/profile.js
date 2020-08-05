@@ -106,10 +106,6 @@ router.get('/', async (req, res) => {
   try {
     let profiles = await Profile.find().populate('user', ['name', 'avatar']);
     res.json(profiles);
-    if (!profile) {
-      return res.status(400).json({ msg: 'There is no profile for this user' });
-    }
-    res.json(profile);
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server Error');
