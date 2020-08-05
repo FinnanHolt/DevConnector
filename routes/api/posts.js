@@ -28,8 +28,9 @@ router.post(
         avatar: user.avatar,
         user: req.user.id,
       });
+      console.log('here');
 
-      await newPost.save();
+      const post = await newPost.save();
 
       res.json(post);
     } catch (error) {
@@ -174,6 +175,7 @@ router.post(
 
       res.json(post.comments);
     } catch (error) {
+      console.log('here');
       console.error(error.message);
       res.status(500).send('Server Error');
     }
