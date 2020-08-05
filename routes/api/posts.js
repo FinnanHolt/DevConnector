@@ -140,7 +140,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
     post.likes.splice(removeIndex, 1);
 
     await post.save();
-    return res.json('Post unliked');
+    return res.json(post.likes);
   } catch (error) {
     console.error(error.message);
     return res.status(500).send('Server Error');
