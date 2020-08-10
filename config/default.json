@@ -1,5 +1,5 @@
 {
   "mongoURI": "mongodb+srv://finnanholt:Colisee2478@socialdev-gjdja.mongodb.net/test?retryWrites=true&w=majority",
   "jwtSecret": "20E38C25D13D39E57AF577E8BE8BBBADCB9B29F1DD02D2F45172ECC0C583DB82",
-  "githubToken": "fbd4e39e7026c704cd72bd8faf0343b1ad2d5b5f"
+  "githubToken": "edbaee520cf933574557d6c47a2e2da3ac2ec24e"
 }
